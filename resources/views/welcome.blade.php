@@ -50,7 +50,7 @@
             <div class="card-body p-4 p-sm-5"  style="text-align:center">
               <form>
                 <h1>Pastikan Saldo Cukup Untuk Pembayaran Air</h2><br>
-                <div class="form-group input-group-lg mb-3">
+                <div class="form-group input-group-lg mb-3" style="display: none;">
                   <input type="text" class="form-control form-large input" autofocus>
                  
                 </div>
@@ -58,10 +58,7 @@
             </div>
           </div>
 
-          <p>
-            Try publishing an event to channel <code>my-channel</code>
-            with event name <code>my-event</code>.
-          </p>
+         
         </div>
       </div>
     </div>

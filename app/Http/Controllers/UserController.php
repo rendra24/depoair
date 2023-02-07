@@ -51,6 +51,9 @@ class UserController extends Controller
         ]);
 
         User::create($validasiData);
+
+        KartuTemp::where('nomor_kartu',$request->nomor_kartu)->delete();
+
         return redirect('users')->with('success', 'User berhasil disimpan');
     }
 
