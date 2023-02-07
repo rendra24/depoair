@@ -57,6 +57,11 @@
               </form>
             </div>
           </div>
+
+          <p>
+            Try publishing an event to channel <code>my-channel</code>
+            with event name <code>my-event</code>.
+          </p>
         </div>
       </div>
     </div>
@@ -65,6 +70,30 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     @include('sweetalert::alert')
+
+
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    <script>
+
+      // Enable pusher logging - don't include this in production
+      Pusher.logToConsole = true;
+  
+      var pusher = new Pusher('4a74d03b30af8e68ef2e', {
+        cluster: 'ap1'
+      });
+
+    var channel = pusher.subscribe('my-order');
+    channel.bind('new-payment', function(data) {
+      Swal.fire({ 
+            icon: data[0].statusMsg,
+            type: data[0].statusMsg, 
+            title: data[0].title,
+            html: `<h2>Nama : ${data[0].nama}</h2>
+                  <h2>Sisa Saldo : ${data[0].saldo}<b></b></h2>`,
+            timer: 5000,
+         });
+    });
+    </script>
 <script>
  
 

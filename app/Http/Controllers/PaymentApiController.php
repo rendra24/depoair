@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Pusher\Pusher;
 use App\Models\User;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ class PaymentApiController extends Controller
 {
     public function index(Request $request)
     {
+
         if($rfid = $request->rfID)
         {
             $user = User::where('nomor_kartu',$rfid)->first();
@@ -23,6 +25,24 @@ class PaymentApiController extends Controller
 
             if($user->saldo < 20000)
             {
+                $dataUser = [
+                    'nama' => $user->nama,
+                    'saldo' => number_format($user->saldo, 2),
+                    'price' => 20000,
+                    'title' => 'Saldo anda tidak cukup',
+                    'statusMsg' => 'error'
+                ];
+                
+    
+                $pusher = new Pusher(
+                    "4a74d03b30af8e68ef2e",
+                    "575f510d65e285ecdb5e",
+                    "1549354",
+                    array('cluster' => 'ap1')
+                  );
+                  
+                  $pusher->trigger('my-order', 'new-payment', array($dataUser));
+
                 return response()->json([
                     'status' => false,
                     'message' => 'Saldo anda tidak cukup'
@@ -52,14 +72,26 @@ class PaymentApiController extends Controller
                 'nama' => $user->nama,
                 'saldo' => number_format($balance, 2),
                 'price' => 20000,
+                'title' => 'Pembayaran Berhasil',
+                'statusMsg' => 'success'
             ];
             
 
-            return response()->json([
+            $pusher = new Pusher(
+                "4a74d03b30af8e68ef2e",
+                "575f510d65e285ecdb5e",
+                "1549354",
+                array('cluster' => 'ap1')
+              );
+              
+              $pusher->trigger('my-order', 'new-payment', array($dataUser));
+
+              return response()->json([
                 'status' => true,
                 'message' => 'Transaksi berhasil',
                 'data' => $dataUser
             ], 201);
+
         }
 
         return response()->json([
