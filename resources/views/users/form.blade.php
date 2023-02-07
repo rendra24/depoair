@@ -69,7 +69,9 @@
                                     </div>
                                     @enderror
                                 </div>
+                                @if(!isset($user))
                                 <div class="form-group my-2">
+                                    
                                     <label for="namaKartu">Nomor Kartu</label>
                                     <select name="nomor_kartu" class="form-control @error('nomor_kartu') is-invalid @enderror">
                                         <option value="">Pilih Kartu</option>
@@ -84,15 +86,7 @@
                                     </div>
                                     @enderror
                                 </div>
-                                <div class="form-group my-2">
-                                    <label for="namaKartu">Saldo</label>
-                                    <input type="number" name="saldo" class="form-control @error('saldo') is-invalid @enderror" placeholder="Saldo" value="{{ old('saldo', $user->saldo ?? '') }}">
-                                    @error('saldo')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
+                                @endif
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">Simpan</button>

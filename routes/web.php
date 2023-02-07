@@ -20,3 +20,5 @@ Route::get('/', function () {
 });
 Route::post('/payment', [PaymentController::class,'index'])->name('payment');
 Route::resource('users', UserController::class);
+Route::get('tambah-saldo/{id}', [UserController::class, 'tambah_saldo'])->name('users.saldo');
+Route::post('update-saldo/{id}', [UserController::class, 'update_saldo'])->name('users.update_saldo');

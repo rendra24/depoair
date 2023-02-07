@@ -42,8 +42,11 @@
                                 <td>{{ $row->nomor_kendaraan }}</td>
                                 <td>{{ $row->nomor_kartu }}</td>
                                 <td>{{ $row->telp }}</td>
-                                <td>{{ $row->saldo }}</td>
-                                <td><a href="{{ route('users.edit', $row->id) }}" class="btn btn-info btn-sm text-color-white">Edit</a></td>
+                                <td>{{ number_format($row->saldo, 0) }}</td>
+                                <td>
+                                  <a href="{{ route('users.edit', $row->id) }}" class="btn btn-info btn-sm text-color-white">Edit</a>
+                                  <a href="{{ 'tambah-saldo/'.$row->id }}" class="btn btn-success btn-sm text-color-white">Tambah Saldo</a>
+                                </td>
                             </tr>
                             @endforeach
                            

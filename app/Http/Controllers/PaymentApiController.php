@@ -58,6 +58,7 @@ class PaymentApiController extends Controller
                 'id_user' => $user->id,
                 'total' => 20000,
                 'saldo' => $balance,
+                'status' => 1,
             ];
 
             $updateData = [
