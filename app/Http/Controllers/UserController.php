@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KartuTemp;
 use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -27,7 +28,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.form');
+        $kartu = KartuTemp::all();
+        return view('users.form', compact('kartu'));
     }
 
     /**

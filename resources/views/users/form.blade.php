@@ -71,7 +71,13 @@
                                 </div>
                                 <div class="form-group my-2">
                                     <label for="namaKartu">Nomor Kartu</label>
-                                    <input type="number" name="nomor_kartu" class="form-control @error('nomor_kartu') is-invalid @enderror" placeholder="Nomor Kartu" value="{{ old('nomor_kartu', $user->nomor_kartu ?? '') }}">
+                                    <select name="nomor_kartu" class="form-control @error('nomor_kartu') is-invalid @enderror">
+                                        <option value="">Pilih Kartu</option>
+                                        @foreach($kartu as $key => $row)
+                                            <option value="{{ $row->nomor_kartu }}">{{ $row->nomor_kartu }}</option>
+                                        @endforeach
+                                    </select>
+                                    
                                     @error('nomor_kartu')
                                     <div class="invalid-feedback">
                                         {{ $message }}

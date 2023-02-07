@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KartuTemp;
 use Pusher\Pusher;
 use App\Models\User;
 use App\Models\Order;
@@ -18,6 +19,9 @@ class PaymentApiController extends Controller
             $user = User::where('nomor_kartu',$rfid)->first();
             if(empty($user))
             {
+                $data['nomor_kartu'] = $rfid;
+                KartuTemp::create($data);
+                
                 return response()->json([
                     'error' => 'Kartu tidak terdaftar'
                 ], 400);
