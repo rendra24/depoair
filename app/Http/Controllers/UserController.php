@@ -104,7 +104,7 @@ class UserController extends Controller
 
         User::where('id', $user->id)->update($validasiData);
 
-        Alert::success('Success Title', 'User berhasil diubah');
+        Alert::success('Berhasil', 'User berhasil diubah');
 
         return redirect('users')->with('success', 'User berhasil diubah');
     }
@@ -124,7 +124,7 @@ class UserController extends Controller
 
             Order::create($dataPay);
 
-            Alert::success('Success Title', 'Saldo berhasil ditambahakan');
+            Alert::success('Berhasil', 'Saldo berhasil ditambahakan');
 
             return redirect('users')->with('success', 'Saldo berhasil ditambahakan');
         }
