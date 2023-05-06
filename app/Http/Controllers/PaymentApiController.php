@@ -31,13 +31,13 @@ class PaymentApiController extends Controller
             {
                 $dataUser = [
                     'nama' => $user->nama,
-                    'saldo' => number_format($user->saldo, 2),
+                    'saldo' => number_format($user->saldo, 0),
                     'price' => 20000,
                     'title' => 'Saldo anda tidak cukup',
                     'statusMsg' => 'error'
                 ];
                 
-    
+    	
                 $pusher = new Pusher(
                     "4a74d03b30af8e68ef2e",
                     "575f510d65e285ecdb5e",
@@ -49,13 +49,15 @@ class PaymentApiController extends Controller
 
                 return response()->json([
                     'status' => false,
-                    'message' => 'Saldo anda tidak cukup'
+                    'message' => '<h1 class="text-danger">Saldo anda tidak cukup</h1>'
                 ], 201);
             }
 
             $balance = $user->saldo - 20000;
+	    $depoid = $request->depoID;
             $data = [
                 'id_user' => $user->id,
+		'id_depo' => $depoid,
                 'total' => 20000,
                 'saldo' => $balance,
                 'status' => 1,
@@ -75,7 +77,7 @@ class PaymentApiController extends Controller
             });
             $dataUser = [
                 'nama' => $user->nama,
-                'saldo' => number_format($balance, 2),
+                'saldo' => number_format($balance, 0),
                 'price' => 20000,
                 'title' => 'Pembayaran Berhasil',
                 'statusMsg' => 'success'
@@ -93,7 +95,7 @@ class PaymentApiController extends Controller
 
               return response()->json([
                 'status' => true,
-                'message' => 'Transaksi berhasil',
+                'message' => '<h1 class="text-success">Transaksi berhasil</h1>',
                 'data' => $dataUser
             ], 201);
 
